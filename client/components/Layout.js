@@ -1,12 +1,14 @@
 import React from "react";
+import Nav from "./Nav";
 
 const Layout = ({ children }) => {
   return (
     <>
       <div className="navbar navbar-fixed-top navbar-inverse" role="navigation">
         <div className="container">
+          <Nav />
           <div className="navbar-header">
-            <a className="navbar-brand" href="/">The Shoppies</a>
+            The Shoppies
           </div>
         </div>
         </div>

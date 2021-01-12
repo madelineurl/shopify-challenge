@@ -5,16 +5,18 @@ import axios from "axios";
 import "../../secrets";
 
 const Search = () => {
-  // refactor to useReducer?
+  // holds current search bar contents
   const [searchVal, setSearchVal] = useState('');
+  // holds search results to render
   const [searchData, setSearchData] = useState([]);
+  // holds current list of nominations
   const [movieList, setMovieList] = useState([]);
+  // holds a helpful message in case the response returns no results
   const [msg, setMsg] = useState('');
 
-  // when component mounts, fetch previous search data from local storage if present
   useEffect(() => {
     const savedList = JSON.parse(localStorage.getItem('nominations'));
-    if (savedList) setSearchData(savedList);
+    if (savedList) setMovieList(savedList);
   }, []);
 
   const handleChange = (evt) => {
@@ -29,6 +31,7 @@ const Search = () => {
         const { data } = await axios.get(
           `http://www.omdbapi.com/?s=${searchVal}&apikey=${process.env.API_KEY}&type=movie`
         );
+        data.Response === 'True' ? setSearchData(data.Search) : setMsg(data.Error);
       }
     } catch (err) {
       console.error(err);
@@ -41,6 +44,7 @@ const Search = () => {
         const { data } = await axios.post('/movies', movie);
         if (data) {
           setMovieList([...movieList, data.imdbID]);
+          localStorage.setItem('nominations', JSON.stringify(movieList));
         }
       } catch (err) {
         console.error(err);
@@ -50,7 +54,7 @@ const Search = () => {
     }
   };
 
-  // console.log('movieList', movieList);
+  console.log('movie list on mount', movieList);
   return (
     <>
       <form method="GET" >
