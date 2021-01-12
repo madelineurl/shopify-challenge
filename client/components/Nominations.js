@@ -36,7 +36,7 @@ const Nominations = () => {
           currentList.length ? (
             currentList.map(movie => (
               <li key={movie.imdbID}>
-                {movie.title}
+                {movie.title} ({movie.year})
                 <button
                   onClick={() => { removeNomination(movie.imdbID); } }>
                     Delete

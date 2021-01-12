@@ -14,9 +14,23 @@ const Search = () => {
   // holds a helpful message in case the response returns no results
   const [msg, setMsg] = useState('');
 
+  // on first render, fetch the existing list from the DB
   useEffect(() => {
-    const savedList = JSON.parse(localStorage.getItem('nominations'));
-    if (savedList) setMovieList(savedList);
+    async function fetchMovies() {
+      try {
+        const {data} = await axios.get('/movies');
+        if (data) {
+          let IDs = [];
+          data.forEach(movie => {
+            IDs.push(movie.imdbID);
+          });
+          setMovieList(IDs);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    fetchMovies();
   }, []);
 
   const handleChange = (evt) => {
@@ -43,8 +57,7 @@ const Search = () => {
       try {
         const { data } = await axios.post('/movies', movie);
         if (data) {
-          setMovieList([...movieList, data.imdbID]);
-          localStorage.setItem('nominations', JSON.stringify(movieList));
+          setMovieList([...movieList, data.imdbID ]);
         }
       } catch (err) {
         console.error(err);
@@ -54,9 +67,11 @@ const Search = () => {
     }
   };
 
-  console.log('movie list on mount', movieList);
   return (
     <>
+      {
+        movieList.length === 5 && <div>Thanks for your nominations.</div>
+      }
       <form method="GET" >
         <input
           type="text"
