@@ -26,7 +26,9 @@ const Search = () => {
       if (searchVal === '') {
         alert('Please enter a search value');
       } else {
-        const { data } = await axios.get(`http://www.omdbapi.com/?s=${searchVal}&apikey=${process.env.API_KEY}&type=movie`);
+        const { data } = await axios.get(
+          `http://www.omdbapi.com/?s=${searchVal}&apikey=${process.env.API_KEY}&type=movie`
+        );
         localStorage.removeItem('searchData');
 
         if (data.Response === 'True') {
@@ -45,9 +47,9 @@ const Search = () => {
   const addMovie = async (movie) => {
     if (movieList.length < 5) {
       try {
-        const nomination = await axios.post('/movies', movie);
-        if (nomination) {
-          setMovieList(...movieList, nomination);
+        const { data } = await axios.post('/movies', movie);
+        if (data) {
+          setMovieList([...movieList, data]);
         }
       } catch (err) {
         console.error(err);
@@ -57,6 +59,7 @@ const Search = () => {
     }
   };
 
+  console.log('movieList', movieList);
   return (
     <>
       <form method="GET" >
@@ -101,7 +104,12 @@ const Search = () => {
                   <h5 className='card-subtitle mb-2 text-muted' >
                     {movie.Year}
                   </h5>
-                  <button onClick={() => addMovie(movie)}>Add movie</button>
+                  <button
+                    onClick={() => addMovie(movie)}
+                    // disabled={movieList.includes(movie.Title)}
+                  >
+                      Add movie
+                  </button>
                 </div>
               </li>
             ))
