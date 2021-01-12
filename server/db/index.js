@@ -8,7 +8,7 @@ const Movie = db.define('movie', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  IMDBid: {
+  imdbID: {
     type: Sequelize.STRING,
     allowNull: false
   }

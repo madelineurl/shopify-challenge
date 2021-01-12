@@ -29,8 +29,6 @@ const Search = () => {
         const { data } = await axios.get(`http://www.omdbapi.com/?s=${searchVal}&apikey=${process.env.API_KEY}&type=movie`);
         localStorage.removeItem('searchData');
 
-        console.log(data);
-
         if (data.Response === 'True') {
           setSearchData(data.Search);
           localStorage.setItem('searchData', JSON.stringify(data.Search));

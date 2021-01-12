@@ -4,15 +4,18 @@ import axios from "axios";
 const Nominations = () => {
   const [currentList, setCurrentList] = useState([]);
 
-  useEffect(async () => {
-    try {
-      const nominations = await axios.get('/');
-      if (nominations) {
-        setCurrentList(nominations);
+  useEffect(() => {
+    async function fetchMovies() {
+      try {
+        const {data} = await axios.get('/movies');
+        if (data) {
+          setCurrentList(data);
+        }
+      } catch (err) {
+        console.error(err);
       }
-    } catch (err) {
-      console.error(err);
     }
+    fetchMovies();
   }, []);
 
   return (
@@ -21,14 +24,17 @@ const Nominations = () => {
       <ul>
         {
           currentList.length ? (
-            currentList.map(movie => {
+            currentList.map(movie => (
               <li key={movie.imdbID}>
-                {movie.name}
-              </li>;
-            })
+                {movie.title}
+              </li>
+            ))
           ) : <h2>No movies nominated yet...</h2>
         }
       </ul>
+      <div id='votes-remaining'>
+        { 5 - currentList.length } nominations remaining
+      </div>
     </>
   );
 };

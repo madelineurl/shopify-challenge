@@ -7,9 +7,9 @@ async function seed() {
   console.log('db synced!');
 
   const movies = await Promise.all([
-    Movie.create({title: 'Love Actually', imdbID: ''}),
-    Movie.create({title: 'Fern Gully', imdbID: '' }),
-    Movie.create({title: 'Home Alone', imdbID: '' })
+    Movie.create({title: 'Love Actually', imdbID: 'tt0314331'}),
+    Movie.create({title: 'Girls Trip', imdbID: 'tt3564472' }),
+    Movie.create({title: 'Cabin in the Woods', imdbID: 'tt1259521' })
   ]);
 
   console.log(`seeded ${movies.length} movies`);
