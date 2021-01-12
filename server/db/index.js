@@ -8,6 +8,10 @@ const Movie = db.define('movie', {
     type: Sequelize.STRING,
     allowNull: false
   },
+  year: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
   imdbID: {
     type: Sequelize.STRING,
     allowNull: false

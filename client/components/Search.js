@@ -60,7 +60,11 @@ const Search = () => {
         if (data) {
           setMovieList([...movieList, data.imdbID ]);
         }
-        if (movieList.length === 5) setBanner(true);
+        if (movieList.length === 5) {
+          setBanner(true);
+        } else {
+          setBanner(false);
+        }
       } catch (err) {
         console.error(err);
       }
