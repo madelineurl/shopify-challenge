@@ -19,7 +19,6 @@ router.post('/', async (req, res, next) => {
     const { Title, Year, imdbID } = req.body;
     const movie = await Movie.create({ title: Title, year: Year, imdbID });
     res.status(201).json(movie);
-    console.log(movie);
   } catch (err) {
     next(err);
   }

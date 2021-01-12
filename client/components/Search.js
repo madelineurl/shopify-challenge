@@ -13,7 +13,6 @@ const Search = () => {
   const [movieList, setMovieList] = useState([]);
   // holds a helpful message in case the response returns no results
   const [msg, setMsg] = useState('');
-  const [banner, setBanner] = useState(false);
 
   // on first render, fetch the existing list from the DB
   useEffect(() => {
@@ -60,11 +59,6 @@ const Search = () => {
         if (data) {
           setMovieList([...movieList, data.imdbID ]);
         }
-        if (movieList.length === 5) {
-          setBanner(true);
-        } else {
-          setBanner(false);
-        }
       } catch (err) {
         console.error(err);
       }
@@ -76,7 +70,7 @@ const Search = () => {
   return (
     <>
       {
-        banner && <div>Thanks for your nominations.</div>
+        movieList.length === 5 && <div>Thanks for your nominations.</div>
       }
       <form method="GET" >
         <input

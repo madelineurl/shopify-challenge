@@ -34,9 +34,7 @@ const Nominations = () => {
       <ul>
         {
           currentList.length ? (
-            currentList.map(movie => {
-              console.log(movie);
-               return (
+            currentList.map(movie => (
               <li key={movie.imdbID}>
                 {movie.title} ({movie.year})
                 <button
@@ -44,7 +42,7 @@ const Nominations = () => {
                     Delete
                 </button>
               </li>
-            )})
+            ))
           ) : <h2>No movies nominated yet...</h2>
         }
       </ul>
