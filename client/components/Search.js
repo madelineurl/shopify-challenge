@@ -6,19 +6,19 @@ import "../../secrets";
 
 const Search = () => {
   // refactor to useReducer?
-  const [entry, setEntry] = useState('');
+  const [searchVal, setSearchVal] = useState('');
   const [searchData, setSearchData] = useState([]);
   const [movieList, setMovieList] = useState([]);
   const [msg, setMsg] = useState('');
 
   // when component mounts, fetch previous search data from local storage if present
   useEffect(() => {
-    const lastSearch = JSON.parse(localStorage.getItem('searchData'));
-    if (lastSearch) setSearchData(lastSearch);
+    const savedList = JSON.parse(localStorage.getItem('nominations'));
+    if (savedList) setSearchData(savedList);
   }, []);
 
   const handleChange = (evt) => {
-    setEntry(evt.target.value);
+    setSearchVal(evt.target.value);
   };
 
   const handleSearch = async (searchVal) => {
@@ -26,16 +26,9 @@ const Search = () => {
       if (searchVal === '') {
         alert('Please enter a search value');
       } else {
-        const { data } = await axios.get(`http://www.omdbapi.com/?s=${searchVal}&apikey=${process.env.API_KEY}&type=movie`);
-        localStorage.removeItem('searchData');
-
-        if (data.Response === 'True') {
-          setSearchData(data.Search);
-          localStorage.setItem('searchData', JSON.stringify(data.Search));
-        } else {
-          setSearchData([]);
-          setMsg(data.Error);
-        }
+        const { data } = await axios.get(
+          `http://www.omdbapi.com/?s=${searchVal}&apikey=${process.env.API_KEY}&type=movie`
+        );
       }
     } catch (err) {
       console.error(err);
@@ -45,9 +38,9 @@ const Search = () => {
   const addMovie = async (movie) => {
     if (movieList.length < 5) {
       try {
-        const nomination = await axios.post('/movies', movie);
-        if (nomination) {
-          setMovieList(...movieList, nomination);
+        const { data } = await axios.post('/movies', movie);
+        if (data) {
+          setMovieList([...movieList, data.imdbID]);
         }
       } catch (err) {
         console.error(err);
@@ -57,6 +50,7 @@ const Search = () => {
     }
   };
 
+  // console.log('movieList', movieList);
   return (
     <>
       <form method="GET" >
@@ -65,12 +59,12 @@ const Search = () => {
           name="search"
           onChange={handleChange}
           className="search"
-          value={entry}
+          value={searchVal}
           onKeyPress={
             (evt) => {
               if (evt.key === 'Enter') {
                 evt.preventDefault();
-                handleSearch(entry);
+                handleSearch(searchVal);
               }
             }
           }
@@ -78,7 +72,7 @@ const Search = () => {
         <button
           className="btn btn-outline-primary"
           type="button"
-          onClick={() => { handleSearch(entry); }}
+          onClick={() => { handleSearch(searchVal); }}
          >
             Search
         </button>
@@ -101,7 +95,12 @@ const Search = () => {
                   <h5 className='card-subtitle mb-2 text-muted' >
                     {movie.Year}
                   </h5>
-                  <button onClick={() => addMovie(movie)}>Add movie</button>
+                  <button
+                    onClick={() => addMovie(movie)}
+                    disabled={movieList.includes(movie.imdbID)}
+                  >
+                      Add movie
+                  </button>
                 </div>
               </li>
             ))
