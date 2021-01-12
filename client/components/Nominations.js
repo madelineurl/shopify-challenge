@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Layout from "./Layout";
 
 const Nominations = () => {
   const [currentList, setCurrentList] = useState([]);
@@ -7,6 +8,7 @@ const Nominations = () => {
   const removeNomination = async id => {
     try {
       await axios.delete(`/movies/${id}`);
+      setCurrentList(currentList.filter(nomination => nomination.imdbID !== id));
     } catch (err) {
       console.error(err);
     }
@@ -24,10 +26,10 @@ const Nominations = () => {
       }
     }
     fetchMovies();
-  }, [currentList]);
+  }, []);
 
   return (
-    <>
+    <Layout>
       <h2>My Shoppies Nominations</h2>
       <ul>
         {
@@ -35,7 +37,10 @@ const Nominations = () => {
             currentList.map(movie => (
               <li key={movie.imdbID}>
                 {movie.title}
-                <button onClick={() => { removeNomination(movie.imdbID); } }>Delete</button>
+                <button
+                  onClick={() => { removeNomination(movie.imdbID); } }>
+                    Delete
+                </button>
               </li>
             ))
           ) : <h2>No movies nominated yet...</h2>
@@ -44,7 +49,7 @@ const Nominations = () => {
       <div id='votes-remaining'>
         { 5 - currentList.length } nominations remaining
       </div>
-    </>
+    </Layout>
   );
 };
 
