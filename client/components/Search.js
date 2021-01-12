@@ -49,7 +49,7 @@ const Search = () => {
       try {
         const { data } = await axios.post('/movies', movie);
         if (data) {
-          setMovieList([...movieList, data]);
+          setMovieList([...movieList, data.imdbID]);
         }
       } catch (err) {
         console.error(err);
@@ -106,7 +106,7 @@ const Search = () => {
                   </h5>
                   <button
                     onClick={() => addMovie(movie)}
-                    // disabled={movieList.includes(movie.Title)}
+                    disabled={movieList.includes(movie.imdbID)}
                   >
                       Add movie
                   </button>
