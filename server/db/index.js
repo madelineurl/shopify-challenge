@@ -7,6 +7,10 @@ const Movie = db.define('movie', {
   title: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  IMDBid: {
+    type: Sequelize.STRING,
+    allowNull: false
   }
 });
 
