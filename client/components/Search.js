@@ -6,19 +6,19 @@ import "../../secrets";
 
 const Search = () => {
   // refactor to useReducer?
-  const [entry, setEntry] = useState('');
+  const [searchVal, setSearchVal] = useState('');
   const [searchData, setSearchData] = useState([]);
   const [movieList, setMovieList] = useState([]);
   const [msg, setMsg] = useState('');
 
   // when component mounts, fetch previous search data from local storage if present
   useEffect(() => {
-    const lastSearch = JSON.parse(localStorage.getItem('searchData'));
-    if (lastSearch) setSearchData(lastSearch);
+    const savedList = JSON.parse(localStorage.getItem('nominations'));
+    if (savedList) setSearchData(savedList);
   }, []);
 
   const handleChange = (evt) => {
-    setEntry(evt.target.value);
+    setSearchVal(evt.target.value);
   };
 
   const handleSearch = async (searchVal) => {
@@ -29,15 +29,6 @@ const Search = () => {
         const { data } = await axios.get(
           `http://www.omdbapi.com/?s=${searchVal}&apikey=${process.env.API_KEY}&type=movie`
         );
-        localStorage.removeItem('searchData');
-
-        if (data.Response === 'True') {
-          setSearchData(data.Search);
-          localStorage.setItem('searchData', JSON.stringify(data.Search));
-        } else {
-          setSearchData([]);
-          setMsg(data.Error);
-        }
       }
     } catch (err) {
       console.error(err);
@@ -59,7 +50,7 @@ const Search = () => {
     }
   };
 
-  console.log('movieList', movieList);
+  // console.log('movieList', movieList);
   return (
     <>
       <form method="GET" >
@@ -68,12 +59,12 @@ const Search = () => {
           name="search"
           onChange={handleChange}
           className="search"
-          value={entry}
+          value={searchVal}
           onKeyPress={
             (evt) => {
               if (evt.key === 'Enter') {
                 evt.preventDefault();
-                handleSearch(entry);
+                handleSearch(searchVal);
               }
             }
           }
@@ -81,7 +72,7 @@ const Search = () => {
         <button
           className="btn btn-outline-primary"
           type="button"
-          onClick={() => { handleSearch(entry); }}
+          onClick={() => { handleSearch(searchVal); }}
          >
             Search
         </button>
