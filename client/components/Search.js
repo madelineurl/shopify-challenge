@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import "../../secrets";
 
@@ -30,8 +29,6 @@ const Search = () => {
         const { data } = await axios.get(`http://www.omdbapi.com/?s=${searchVal}&apikey=${process.env.API_KEY}&type=movie`);
         localStorage.removeItem('searchData');
 
-        // console.log(data);
-
         if (data.Response === 'True') {
           setSearchData(data.Search);
           localStorage.setItem('searchData', JSON.stringify(data.Search));
@@ -52,7 +49,6 @@ const Search = () => {
         if (nomination) {
           setMovieList(...movieList, nomination);
         }
-        console.log(nomination);
       } catch (err) {
         console.error(err);
       }
