@@ -76,19 +76,18 @@ const Search = () => {
             searchData.map(movie => (
               <li key={movie.imdbID} className='card'>
                 <div className='card-body'>
-                  <div>
-                    <img
-                      className='card-img-top'
-                      src={movie.Poster}
-                      alt={`${movie.Title} poster`}
-                    />
-                    <h4 className='card-title'>
-                      {movie.Title}
-                    </h4>
-                    <h5 className='card-subtitle mb-2 text-muted' >
-                      {movie.Year}
-                    </h5>
-                  </div>
+                  <img
+                    className='card-img-top'
+                    src={movie.Poster}
+                    alt={`${movie.Title} poster`}
+                  />
+                  <h4 className='card-title'>
+                    {movie.Title}
+                  </h4>
+                  <h5 className='card-subtitle mb-2 text-muted' >
+                    {movie.Year}
+                  </h5>
+                  <button>Add movie</button>
                 </div>
               </li>
             ))
