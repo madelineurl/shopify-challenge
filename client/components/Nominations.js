@@ -24,7 +24,7 @@ const Nominations = () => {
       }
     }
     fetchMovies();
-  }, []);
+  }, [currentList]);
 
   return (
     <>
@@ -35,7 +35,7 @@ const Nominations = () => {
             currentList.map(movie => (
               <li key={movie.imdbID}>
                 {movie.title}
-                <button onClick={removeNomination}>Delete</button>
+                <button onClick={() => { removeNomination(movie.imdbID); } }>Delete</button>
               </li>
             ))
           ) : <h2>No movies nominated yet...</h2>
