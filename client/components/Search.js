@@ -5,8 +5,10 @@ import axios from "axios";
 import "../../secrets";
 
 const Search = () => {
+  // refactor to useReducer?
   const [entry, setEntry] = useState('');
   const [searchData, setSearchData] = useState([]);
+  const [movieList, setMovieList] = useState([]);
   const [msg, setMsg] = useState('');
 
   // when component mounts, fetch previous search data from local storage if present
@@ -39,6 +41,21 @@ const Search = () => {
       }
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const addMovie = async (movie) => {
+    if (movieList.length < 5) {
+      try {
+        const nomination = await axios.post('/movies', movie);
+        if (nomination) {
+          setMovieList(...movieList, nomination);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      alert('You have already selected 5 movies! Please remove a movie to add a different one.');
     }
   };
 
@@ -75,19 +92,18 @@ const Search = () => {
             searchData.map(movie => (
               <li key={movie.imdbID} className='card'>
                 <div className='card-body'>
-                  <div>
-                    <img
-                      className='card-img-top'
-                      src={movie.Poster}
-                      alt={`${movie.Title} poster`}
-                    />
-                    <h4 className='card-title'>
-                      {movie.Title}
-                    </h4>
-                    <h5 className='card-subtitle mb-2 text-muted' >
-                      {movie.Year}
-                    </h5>
-                  </div>
+                  <img
+                    className='card-img-top'
+                    src={movie.Poster}
+                    alt={`${movie.Title} poster`}
+                  />
+                  <h4 className='card-title'>
+                    {movie.Title}
+                  </h4>
+                  <h5 className='card-subtitle mb-2 text-muted' >
+                    {movie.Year}
+                  </h5>
+                  <button onClick={() => addMovie(movie)}>Add movie</button>
                 </div>
               </li>
             ))

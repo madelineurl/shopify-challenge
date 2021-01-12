@@ -22,7 +22,7 @@ const Nominations = () => {
         {
           currentList.length ? (
             currentList.map(movie => {
-              <li key={movie.IMDBid}>
+              <li key={movie.imdbID}>
                 {movie.name}
               </li>;
             })
