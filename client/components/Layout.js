@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
       <div className="navbar navbar-fixed-top navbar-inverse" role="navigation">
         <div className="container">
           <div className="navbar-header">
-            <a className="navbar-brand" href="/">Cinema Search & Vote</a>
+            <a className="navbar-brand" href="/">The Shoppies</a>
           </div>
         </div>
         </div>
