@@ -3,6 +3,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "../../secrets";
+// import Nominations from "./Nominations";
 
 const Search = () => {
   // holds current search bar contents
@@ -13,25 +14,6 @@ const Search = () => {
   const [movieList, setMovieList] = useState([]);
   // holds a helpful message in case the response returns no results
   const [msg, setMsg] = useState('');
-
-  // on first render, fetch the existing list from the DB
-  useEffect(() => {
-    async function fetchMovies() {
-      try {
-        const {data} = await axios.get('/movies');
-        if (data) {
-          let IDs = [];
-          data.forEach(movie => {
-            IDs.push(movie.imdbID);
-          });
-          setMovieList(IDs);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    fetchMovies();
-  }, []);
 
   const handleChange = (evt) => {
     setSearchVal(evt.target.value);
