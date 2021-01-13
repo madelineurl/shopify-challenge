@@ -1,11 +1,9 @@
 import React from "react";
-import Nav from "./Nav";
 
 const Layout = ({ children }) => {
   return (
     <>
       <div className="container" role="navigation">
-        <Nav />
         <h1 className="navbar-header">
           The Shoppies
         </h1>

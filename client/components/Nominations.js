@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Layout from "./Layout";
 
 const Nominations = () => {
   const [currentList, setCurrentList] = useState([]);
@@ -29,8 +28,8 @@ const Nominations = () => {
   }, []);
 
   return (
-    <Layout>
-      <h2>My Shoppies Nominations</h2>
+    <>
+      <h2>My Nominations</h2>
       <ul>
         {
           currentList.length ? (
@@ -49,7 +48,7 @@ const Nominations = () => {
       <div id='votes-remaining'>
         { 5 - currentList.length } nominations remaining
       </div>
-    </Layout>
+    </>
   );
 };
 
