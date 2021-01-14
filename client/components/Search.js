@@ -3,17 +3,20 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "../../secrets";
-// import Nominations from "./Nominations";
+import Nominations from "./Nominations";
 
 const Search = () => {
-  // holds current search bar contents
   const [searchVal, setSearchVal] = useState('');
-  // holds search results to render
   const [searchData, setSearchData] = useState([]);
-  // holds current list of nominations
   const [movieList, setMovieList] = useState([]);
-  // holds a helpful message in case the response returns no results
   const [msg, setMsg] = useState('');
+
+  // when the component mounts,
+  useEffect(() => {
+    const nominations = JSON.parse(localStorage.getItem('nominations'));
+    if (nominations) setMovieList(nominations);
+    // console.log('nominations inside useeffect', nominations);
+  }, []);
 
   const handleChange = (evt) => {
     setSearchVal(evt.target.value);
@@ -34,19 +37,19 @@ const Search = () => {
     }
   };
 
-  const addMovie = async (movie) => {
+  const addMovie = (movie) => {
     if (movieList.length < 5) {
-      try {
-        const { data } = await axios.post('/movies', movie);
-        if (data) {
-          setMovieList([...movieList, data.imdbID ]);
-        }
-      } catch (err) {
-        console.error(err);
-      }
+      console.log('movie inside addmovie', movie);
+      setMovieList([...movieList, movie]);
+      localStorage.setItem('nominations', JSON.stringify(movieList));
     } else {
       alert('You have already selected 5 movies! Please remove a movie to add a different one.');
     }
+  };
+
+  const removeMovie = id => {
+    setMovieList(movieList.filter(nomination => nomination.imdbID !== id));
+    localStorage.setItem('nominations', JSON.stringify(movieList));
   };
 
   return (
@@ -54,6 +57,7 @@ const Search = () => {
       {
         movieList.length === 5 && <div>Thanks for your nominations.</div>
       }
+      <Nominations movieList={movieList} removeMovie={removeMovie} />
       <form method="GET" >
         <input
           type="text"
@@ -98,7 +102,7 @@ const Search = () => {
                   </h5>
                   <button
                     onClick={() => addMovie(movie)}
-                    disabled={movieList.includes(movie.imdbID)}
+                    disabled={movieList.includes(movie)}
                   >
                       Add movie
                   </button>
