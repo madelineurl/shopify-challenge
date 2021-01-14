@@ -16,6 +16,7 @@ const Search = () => {
   const [msg, setMsg] = useState('');
 
   const searchClass = searchActive ? 'search active' : 'search';
+  const bannerClass = movieList.length === 5 ? 'banner show' : 'banner';
 
   useEffect(() => {
     const nominations = JSON.parse(localStorage.getItem('nominations'));
@@ -76,10 +77,7 @@ const Search = () => {
 
   return (
     <>
-      {
-        movieList.length === 5 &&
-        <div className="banner">Thanks for your nominations.</div>
-      }
+      <div className={bannerClass}>Thanks for your nominations.</div>
       <Nominations movieList={movieList} removeMovie={removeMovie} />
       <form method="GET" className={searchClass}>
         <input
