@@ -32,7 +32,7 @@ const Search = () => {
   const openSearchBar = (searchVal) => {
     if (!searchActive) {
       setSearchActive(true);
-      const input = document.querySelector("input");
+      const input = document.querySelector(".input");
       input.focus();
     } else {
       handleSearch(searchVal);
