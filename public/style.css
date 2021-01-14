@@ -45,7 +45,13 @@ h1 {
   list-style-type: none;
 }
 
-/* .search input {
+.search {
+  position: relative;
+  height: 50px;
+  transition: transform 0.3s ease;
+}
+
+.search input {
   background-color: #fff;
   border: 0;
   font-size: 18px;
@@ -53,9 +59,13 @@ h1 {
   height: 50px;
   width: 50px;
   transition: width 0.3s ease;
-} */
+}
 
-/* .search button {
+.search.active input {
+  width: 200px;
+}
+
+.search button {
   background-color: #fff;
   border: 0;
   cursor: pointer;
@@ -66,17 +76,17 @@ h1 {
   height: 50px;
   width: 50px;
   transition: transform 0.3s ease;
-} */
-
-button:focus,
-.input:focus {
-  outline: none;
-}
-
-.search.active input {
-  width: 200px;
 }
 
 .search.active button {
   transform: translateX(198px);
+}
+
+.search button:focus,
+.search input:focus {
+  outline: none;
+}
+
+.search-results {
+  list-style-type: none;
 }

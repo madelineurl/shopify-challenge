@@ -8,10 +8,13 @@ import "../../secrets";
 import Nominations from "./Nominations";
 
 const Search = () => {
+  const [searchActive, setSearchActive] = useState(false);
   const [searchVal, setSearchVal] = useState('');
   const [searchData, setSearchData] = useState([]);
   const [movieList, setMovieList] = useState([]);
   const [msg, setMsg] = useState('');
+
+  const searchClass = searchActive ? 'search active' : 'search';
 
   useEffect(() => {
     const nominations = JSON.parse(localStorage.getItem('nominations'));
@@ -24,6 +27,13 @@ const Search = () => {
 
   const handleChange = (evt) => {
     setSearchVal(evt.target.value);
+  };
+
+  const openSearchBar = (searchVal) => {
+    if (!searchActive) setSearchActive(true);
+    else {
+      handleSearch(searchVal);
+    }
   };
 
   const handleSearch = async (searchVal) => {
@@ -67,7 +77,7 @@ const Search = () => {
         <div className="banner">Thanks for your nominations.</div>
       }
       <Nominations movieList={movieList} removeMovie={removeMovie} />
-      <form method="GET" className="search">
+      <form method="GET" className={searchClass}>
         <input
           type="text"
           name="search"
@@ -84,13 +94,13 @@ const Search = () => {
         />
         <button
           type="button"
-          onClick={() => { handleSearch(searchVal); }}
+          onClick={() =>{ openSearchBar(searchVal); }}
          >
             <FontAwesomeIcon icon={faSearch} />
         </button>
       </form>
       <hr/>
-      <ul>
+      <ul className="search-results">
         {
           searchData.length ? (
             searchData.map(movie => (
@@ -117,7 +127,7 @@ const Search = () => {
             ))
           ) : <div>{msg}</div>
         }
-        </ul>
+      </ul>
     </>
   );
 };
