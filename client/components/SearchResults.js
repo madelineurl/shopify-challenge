@@ -9,7 +9,7 @@ const SearchResults = ({ searchData, addMovie, checkID, msg }) => {
         results.length ? (
           results.map(movie => (
             <li key={movie.imdbID} className='card container'>
-              <div>
+              <div className="container">
                 <img
                   src={movie.Poster}
                   alt={`${movie.Title} poster`}
