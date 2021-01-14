@@ -30,8 +30,11 @@ const Search = () => {
   };
 
   const openSearchBar = (searchVal) => {
-    if (!searchActive) setSearchActive(true);
-    else {
+    if (!searchActive) {
+      setSearchActive(true);
+      const input = document.querySelector("input");
+      input.focus();
+    } else {
       handleSearch(searchVal);
     }
   };
@@ -81,6 +84,7 @@ const Search = () => {
         <input
           type="text"
           name="search"
+          className="input"
           onChange={handleChange}
           value={searchVal}
           onKeyPress={
