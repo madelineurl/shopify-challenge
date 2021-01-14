@@ -1,122 +1,134 @@
-.movie-listing {
-  display: -webkit-box;
-  display: -ms-flexbox;
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+/* Righteous and Lobster are both fun choices */
+
+:root {
+  --primary-font: 'Raleway', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rebeccapurple;
+  color: white;
+  font-family: var(--primary-font);
+  font-size: 1.25rem;
+  height: 100%;
+}
+
+.container {
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  width: 100%;
-  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 
-.movie-listing li {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  width: 32%;
-  list-style: none;
-  text-align: center;
-  margin: .75rem .75rem .75rem 0;
-  background-color: #f2f5fb;
-  border-radius: 5px;
+h1 {
+  font-family: 'Righteous', sans-serif;
+  font-size: 3.5rem;
+  /* margin-top: 0; */
 }
 
-.movie-listing li:hover {
-  background-color: #e2e6f0;
+.btn {
+  font-family: var(--primary-font);
 }
 
-.movie-listing li img {
-  height: 17rem;
-  width: 13rem;
-  margin-bottom: 1rem;
-  margin-top: .75rem;
+.footer {
+  position: fixed;
+  bottom: 15px;
+  /* font-family: var(--primary-font); */
 }
 
 .search {
-  margin-right: 1rem;
+  position: relative;
+  height: 50px;
+  transition: transform 0.3s ease;
 }
 
-.movie-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
+.search input {
+  background-color: #fff;
+  border: 0;
+  font-size: 18px;
+  padding: 15px;
+  height: 50px;
+  width: 50px;
+  transition: width 0.3s ease;
+}
+
+.search.active input {
+  width: 230px;
+}
+
+.search button {
+  background-color: #fff;
+  border: 0;
+  cursor: pointer;
+  font-size: 24px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 50px;
+  width: 50px;
+  transition: transform 0.3s ease;
+}
+
+.search.active button {
+  transform: translateX(198px);
+}
+
+.search button:focus,
+.search input:focus {
+  outline: none;
+}
+
+.search-results {
+  list-style-type: none;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+/* #nominations {
+  position: fixed;
+  right: 5px;
+  top: 5px
+} */
+
+#nominations ul {
+  list-style-type: none;
+}
+
+.card {
+  margin: 1rem;
+  padding: 1rem;
+  background-color: rgb(158, 113, 203);
+  border-radius: 5px;
+}
+
+.card img {
+  width: 200px;
+  height: 250px;
+  border-radius: 5px;
+}
+
+.banner {
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 5vh;
+  background-color: rgb(254, 254, 0);
+  color: rebeccapurple;
+  font-weight: bold;
+  font-size: 1.75rem;
+  transform: translateY(-100%);
+  transition: transform 0.3s linear;
 }
 
-.movie-details {
-  margin-left: 1rem;
+.banner.show {
+  transform: translateY(0%);
 }
-
-.votes label {
-  padding-right: 1.25rem;
-  padding-left: .2rem;
-}
-
-.downvote {
-  width: 100px;
-  height: 100px;
-}
-
-.link {
-  color: #343638;
-}
-
-.link:hover {
-  text-decoration: none;
-  color: #3c8ad3;
-}
-
-@media screen and (max-width: 1030px) {
-  .movie-listing li {
-    width: 45%;
-    margin: .75rem auto;
-  }
-}
-
-@media screen and (max-width: 780px) {
-  .movie-listing li {
-    width: 100%;
-    margin: .75rem auto;
-  }
-  .movie-container {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    text-align: center;
-    background-color: #e2e6f0;
-    border-radius: 5px;
-    -webkit-box-shadow: 2px grey;
-            box-shadow: 2px grey;
-  }
-  .movie-container div {
-    margin: 1rem;
-  }
-}
-
-@media screen and (max-width: 575px) {
-  .search {
-    margin-left: 1rem;
-  }
-  .footer {
-    position: fixed;
-    left: 1rem;
-    width: 100%;
-  }
-}
-/*# sourceMappingURL=style.css.map */

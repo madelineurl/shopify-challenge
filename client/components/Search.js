@@ -2,28 +2,43 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import "../../secrets";
 import Nominations from "./Nominations";
+import SearchResults from "./SearchResults";
 
 const Search = () => {
+  const [searchActive, setSearchActive] = useState(false);
   const [searchVal, setSearchVal] = useState('');
   const [searchData, setSearchData] = useState([]);
   const [movieList, setMovieList] = useState([]);
   const [msg, setMsg] = useState('');
 
-  // load the existing list from local storage when the component mounts
+  const searchClass = searchActive ? 'search active' : 'search';
+  const bannerClass = movieList.length === 5 ? 'banner show' : 'banner';
+
   useEffect(() => {
     const nominations = JSON.parse(localStorage.getItem('nominations'));
     if (nominations) setMovieList(nominations);
-    console.log(nominations);
   }, []);
 
-  const updateLocalStorage = nominations => {
-    localStorage.setItem('nominations', JSON.stringify(nominations));
+  const updateLocalStorage = updatedList => {
+    localStorage.setItem('nominations', JSON.stringify(updatedList));
   };
 
   const handleChange = (evt) => {
     setSearchVal(evt.target.value);
+  };
+
+  const openSearchBar = (searchVal) => {
+    if (!searchActive) {
+      setSearchActive(true);
+      const input = document.querySelector(".input");
+      input.focus();
+    } else {
+      handleSearch(searchVal);
+    }
   };
 
   const handleSearch = async (searchVal) => {
@@ -62,16 +77,14 @@ const Search = () => {
 
   return (
     <>
-      {
-        movieList.length === 5 && <div>Thanks for your nominations.</div>
-      }
+      <div className={bannerClass}>Thanks for your nominations.</div>
       <Nominations movieList={movieList} removeMovie={removeMovie} />
-      <form method="GET" >
+      <form method="GET" className={searchClass}>
         <input
           type="text"
           name="search"
+          className="input"
           onChange={handleChange}
-          className="search"
           value={searchVal}
           onKeyPress={
             (evt) => {
@@ -84,40 +97,17 @@ const Search = () => {
         />
         <button
           type="button"
-          onClick={() => { handleSearch(searchVal); }}
+          onClick={() =>{ openSearchBar(searchVal); }}
          >
-            Search
+            <FontAwesomeIcon icon={faSearch} />
         </button>
       </form>
-      <hr/>
-      <ul>
-        {
-          searchData.length ? (
-            searchData.map(movie => (
-              <li key={movie.imdbID} className='card'>
-                <div>
-                  <img
-                    src={movie.Poster}
-                    alt={`${movie.Title} poster`}
-                  />
-                  <h4 className='card-title'>
-                    {movie.Title}
-                  </h4>
-                  <h5 >
-                    {movie.Year}
-                  </h5>
-                  <button
-                    onClick={() => addMovie(movie)}
-                    disabled={checkID(movie)}
-                  >
-                      Add movie
-                  </button>
-                </div>
-              </li>
-            ))
-          ) : <div>{msg}</div>
-        }
-        </ul>
+     <SearchResults
+        searchData={searchData}
+        addMovie={addMovie}
+        msg={msg}
+        checkID={checkID}
+      />
     </>
   );
 };
