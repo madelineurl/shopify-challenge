@@ -39,7 +39,6 @@ const Search = () => {
 
   const addMovie = (movie) => {
     if (movieList.length < 5) {
-      console.log('movie inside addmovie', movie);
       setMovieList([...movieList, movie]);
       localStorage.setItem('nominations', JSON.stringify(movieList));
     } else {
@@ -50,6 +49,11 @@ const Search = () => {
   const removeMovie = id => {
     setMovieList(movieList.filter(nomination => nomination.imdbID !== id));
     localStorage.setItem('nominations', JSON.stringify(movieList));
+  };
+
+  const checkID = movie => {
+    const result = movieList.filter(nomination => nomination.imdbID === movie.imdbID);
+    return result.length > 0;
   };
 
   return (
@@ -102,7 +106,7 @@ const Search = () => {
                   </h5>
                   <button
                     onClick={() => addMovie(movie)}
-                    disabled={movieList.includes(movie)}
+                    disabled={checkID(movie)}
                   >
                       Add movie
                   </button>
