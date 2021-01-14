@@ -11,11 +11,10 @@ const Search = () => {
   const [movieList, setMovieList] = useState([]);
   const [msg, setMsg] = useState('');
 
-  // when the component mounts,
+  // load the existing list from local storage when the component mounts
   useEffect(() => {
     const nominations = JSON.parse(localStorage.getItem('nominations'));
     if (nominations) setMovieList(nominations);
-    // console.log('nominations inside useeffect', nominations);
   }, []);
 
   const handleChange = (evt) => {
