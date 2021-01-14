@@ -3,17 +3,24 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "../../secrets";
-// import Nominations from "./Nominations";
+import Nominations from "./Nominations";
 
 const Search = () => {
-  // holds current search bar contents
   const [searchVal, setSearchVal] = useState('');
-  // holds search results to render
   const [searchData, setSearchData] = useState([]);
-  // holds current list of nominations
   const [movieList, setMovieList] = useState([]);
-  // holds a helpful message in case the response returns no results
   const [msg, setMsg] = useState('');
+
+  // load the existing list from local storage when the component mounts
+  useEffect(() => {
+    const nominations = JSON.parse(localStorage.getItem('nominations'));
+    if (nominations) setMovieList(nominations);
+    console.log(nominations);
+  }, []);
+
+  const updateLocalStorage = nominations => {
+    localStorage.setItem('nominations', JSON.stringify(nominations));
+  };
 
   const handleChange = (evt) => {
     setSearchVal(evt.target.value);
@@ -34,19 +41,23 @@ const Search = () => {
     }
   };
 
-  const addMovie = async (movie) => {
+  const addMovie = (movie) => {
     if (movieList.length < 5) {
-      try {
-        const { data } = await axios.post('/movies', movie);
-        if (data) {
-          setMovieList([...movieList, data.imdbID ]);
-        }
-      } catch (err) {
-        console.error(err);
-      }
+      setMovieList([...movieList, movie]);
+      updateLocalStorage([...movieList, movie]);
     } else {
       alert('You have already selected 5 movies! Please remove a movie to add a different one.');
     }
+  };
+
+  const removeMovie = id => {
+    setMovieList(movieList.filter(nomination => nomination.imdbID !== id));
+    updateLocalStorage(movieList.filter(nomination => nomination.imdbID !== id));
+  };
+
+  const checkID = movie => {
+    const result = movieList.filter(nomination => nomination.imdbID === movie.imdbID);
+    return result.length > 0;
   };
 
   return (
@@ -54,6 +65,7 @@ const Search = () => {
       {
         movieList.length === 5 && <div>Thanks for your nominations.</div>
       }
+      <Nominations movieList={movieList} removeMovie={removeMovie} />
       <form method="GET" >
         <input
           type="text"
@@ -71,7 +83,6 @@ const Search = () => {
           }
         />
         <button
-          className="btn btn-outline-primary"
           type="button"
           onClick={() => { handleSearch(searchVal); }}
          >
@@ -79,26 +90,25 @@ const Search = () => {
         </button>
       </form>
       <hr/>
-      <ul className="list-unstyled movie-listing">
+      <ul>
         {
           searchData.length ? (
             searchData.map(movie => (
               <li key={movie.imdbID} className='card'>
-                <div className='card-body'>
+                <div>
                   <img
-                    className='card-img-top'
                     src={movie.Poster}
                     alt={`${movie.Title} poster`}
                   />
                   <h4 className='card-title'>
                     {movie.Title}
                   </h4>
-                  <h5 className='card-subtitle mb-2 text-muted' >
+                  <h5 >
                     {movie.Year}
                   </h5>
                   <button
                     onClick={() => addMovie(movie)}
-                    disabled={movieList.includes(movie.imdbID)}
+                    disabled={checkID(movie)}
                   >
                       Add movie
                   </button>

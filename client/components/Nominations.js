@@ -1,43 +1,19 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 
-const Nominations = () => {
-  const [currentList, setCurrentList] = useState([]);
-
-  const removeNomination = async id => {
-    try {
-      await axios.delete(`/movies/${id}`);
-      setCurrentList(currentList.filter(nomination => nomination.imdbID !== id));
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    async function fetchMovies() {
-      try {
-        const {data} = await axios.get('/movies');
-        if (data) {
-          setCurrentList(data);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    fetchMovies();
-  }, []);
+const Nominations = ({ movieList, removeMovie }) => {
+  const nominations = movieList || [];
 
   return (
     <>
       <h2>My Nominations</h2>
       <ul>
         {
-          currentList.length ? (
-            currentList.map(movie => (
+          nominations.length ? (
+            nominations.map(movie => (
               <li key={movie.imdbID}>
-                {movie.title} ({movie.year})
+                {movie.Title} ({movie.Year})
                 <button
-                  onClick={() => { removeNomination(movie.imdbID); } }>
+                  onClick={() => { removeMovie(movie.imdbID); } }>
                     Delete
                 </button>
               </li>
@@ -46,7 +22,7 @@ const Nominations = () => {
         }
       </ul>
       <div id='votes-remaining'>
-        { 5 - currentList.length } nominations remaining
+        { 5 - nominations.length } nominations remaining
       </div>
     </>
   );
