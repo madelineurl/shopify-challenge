@@ -2,6 +2,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import "../../secrets";
 import Nominations from "./Nominations";
 
@@ -65,12 +67,11 @@ const Search = () => {
         <div className="banner">Thanks for your nominations.</div>
       }
       <Nominations movieList={movieList} removeMovie={removeMovie} />
-      <form method="GET" >
+      <form method="GET" className="search">
         <input
           type="text"
           name="search"
           onChange={handleChange}
-          className="search"
           value={searchVal}
           onKeyPress={
             (evt) => {
@@ -85,7 +86,7 @@ const Search = () => {
           type="button"
           onClick={() => { handleSearch(searchVal); }}
          >
-            Search
+            <FontAwesomeIcon icon={faSearch} />
         </button>
       </form>
       <hr/>

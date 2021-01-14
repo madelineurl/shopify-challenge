@@ -6,13 +6,14 @@ const Nominations = ({ movieList, removeMovie }) => {
   return (
     <div id="nominations">
       <h2>My Nominations</h2>
-      <ul>
+      <ul className="nominations">
         {
           nominations.length ? (
             nominations.map(movie => (
-              <li key={movie.imdbID}>
+              <li key={movie.imdbID} >
                 {movie.Title} ({movie.Year})
                 <button
+                  className="btn"
                   onClick={() => { removeMovie(movie.imdbID); } }>
                     Delete
                 </button>
