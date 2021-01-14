@@ -15,7 +15,12 @@ const Search = () => {
   useEffect(() => {
     const nominations = JSON.parse(localStorage.getItem('nominations'));
     if (nominations) setMovieList(nominations);
+    console.log(nominations);
   }, []);
+
+  const updateLocalStorage = nominations => {
+    localStorage.setItem('nominations', JSON.stringify(nominations));
+  };
 
   const handleChange = (evt) => {
     setSearchVal(evt.target.value);
@@ -39,7 +44,7 @@ const Search = () => {
   const addMovie = (movie) => {
     if (movieList.length < 5) {
       setMovieList([...movieList, movie]);
-      localStorage.setItem('nominations', JSON.stringify(movieList));
+      updateLocalStorage([...movieList, movie]);
     } else {
       alert('You have already selected 5 movies! Please remove a movie to add a different one.');
     }
@@ -47,7 +52,7 @@ const Search = () => {
 
   const removeMovie = id => {
     setMovieList(movieList.filter(nomination => nomination.imdbID !== id));
-    localStorage.setItem('nominations', JSON.stringify(movieList));
+    updateLocalStorage(movieList.filter(nomination => nomination.imdbID !== id));
   };
 
   const checkID = movie => {
@@ -78,7 +83,6 @@ const Search = () => {
           }
         />
         <button
-          className="btn btn-outline-primary"
           type="button"
           onClick={() => { handleSearch(searchVal); }}
          >
@@ -86,21 +90,20 @@ const Search = () => {
         </button>
       </form>
       <hr/>
-      <ul className="list-unstyled movie-listing">
+      <ul>
         {
           searchData.length ? (
             searchData.map(movie => (
               <li key={movie.imdbID} className='card'>
-                <div className='card-body'>
+                <div>
                   <img
-                    className='card-img-top'
                     src={movie.Poster}
                     alt={`${movie.Title} poster`}
                   />
                   <h4 className='card-title'>
                     {movie.Title}
                   </h4>
-                  <h5 className='card-subtitle mb-2 text-muted' >
+                  <h5 >
                     {movie.Year}
                   </h5>
                   <button
