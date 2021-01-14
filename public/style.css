@@ -23,12 +23,13 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  flex-wrap: wrap;
 }
 
 h1 {
   font-family: 'Righteous', sans-serif;
   font-size: 3.5rem;
-  margin-top: 0;
+  /* margin-top: 0; */
 }
 
 .btn {
@@ -39,10 +40,6 @@ h1 {
   position: fixed;
   bottom: 15px;
   /* font-family: var(--primary-font); */
-}
-
-.nominations {
-  list-style-type: none;
 }
 
 .search {
@@ -62,7 +59,7 @@ h1 {
 }
 
 .search.active input {
-  width: 200px;
+  width: 230px;
 }
 
 .search button {
@@ -89,4 +86,43 @@ h1 {
 
 .search-results {
   list-style-type: none;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#nominations {
+  position: fixed;
+  right: 5px;
+  top: 5px
+}
+
+#nominations ul {
+  list-style-type: none;
+}
+
+.card {
+  margin: 1rem;
+  padding: 1rem;
+  background-color: rgb(158, 113, 203);
+  border-radius: 5px;
+}
+
+.card img {
+  width: 200px;
+  height: 250px;
+  border-radius: 5px;
+}
+
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 5vh;
+  background-color: rgb(254, 254, 0);
+  color: rebeccapurple;
+  font-weight: bold;
+  font-size: 1.75rem;
 }

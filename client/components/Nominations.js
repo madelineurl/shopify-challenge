@@ -5,8 +5,8 @@ const Nominations = ({ movieList, removeMovie }) => {
 
   return (
     <div id="nominations">
-      <h2>My Nominations</h2>
-      <ul className="nominations">
+      <h2>Nominations:</h2>
+      <ul>
         {
           nominations.length ? (
             nominations.map(movie => (

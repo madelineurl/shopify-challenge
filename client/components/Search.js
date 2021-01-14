@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import "../../secrets";
 import Nominations from "./Nominations";
+import SearchResults from "./SearchResults";
 
 const Search = () => {
   const [searchActive, setSearchActive] = useState(false);
@@ -21,8 +22,8 @@ const Search = () => {
     if (nominations) setMovieList(nominations);
   }, []);
 
-  const updateLocalStorage = nominations => {
-    localStorage.setItem('nominations', JSON.stringify(nominations));
+  const updateLocalStorage = updatedList => {
+    localStorage.setItem('nominations', JSON.stringify(updatedList));
   };
 
   const handleChange = (evt) => {
@@ -103,35 +104,12 @@ const Search = () => {
             <FontAwesomeIcon icon={faSearch} />
         </button>
       </form>
-      <hr/>
-      <ul className="search-results">
-        {
-          searchData.length ? (
-            searchData.map(movie => (
-              <li key={movie.imdbID} className='card'>
-                <div>
-                  <img
-                    src={movie.Poster}
-                    alt={`${movie.Title} poster`}
-                  />
-                  <h4 className='card-title'>
-                    {movie.Title}
-                  </h4>
-                  <h5 >
-                    {movie.Year}
-                  </h5>
-                  <button
-                    onClick={() => addMovie(movie)}
-                    disabled={checkID(movie)}
-                  >
-                      Add movie
-                  </button>
-                </div>
-              </li>
-            ))
-          ) : <div>{msg}</div>
-        }
-      </ul>
+     <SearchResults
+        searchData={searchData}
+        addMovie={addMovie}
+        msg={msg}
+        checkID={checkID}
+      />
     </>
   );
 };
