@@ -11,11 +11,9 @@ const Search = () => {
   const [movieList, setMovieList] = useState([]);
   const [msg, setMsg] = useState('');
 
-  // load the existing list from local storage when the component mounts
   useEffect(() => {
     const nominations = JSON.parse(localStorage.getItem('nominations'));
     if (nominations) setMovieList(nominations);
-    console.log(nominations);
   }, []);
 
   const updateLocalStorage = nominations => {
@@ -63,7 +61,8 @@ const Search = () => {
   return (
     <>
       {
-        movieList.length === 5 && <div>Thanks for your nominations.</div>
+        movieList.length === 5 &&
+        <div className="banner">Thanks for your nominations.</div>
       }
       <Nominations movieList={movieList} removeMovie={removeMovie} />
       <form method="GET" >

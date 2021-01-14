@@ -4,7 +4,7 @@ const Nominations = ({ movieList, removeMovie }) => {
   const nominations = movieList || [];
 
   return (
-    <>
+    <div id="nominations">
       <h2>My Nominations</h2>
       <ul>
         {
@@ -24,7 +24,7 @@ const Nominations = ({ movieList, removeMovie }) => {
       <div id='votes-remaining'>
         { 5 - nominations.length } nominations remaining
       </div>
-    </>
+    </div>
   );
 };
 
