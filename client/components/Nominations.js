@@ -11,7 +11,7 @@ const Nominations = ({ movieList, removeMovie, searchData, landingMsg, clearNomi
   };
 
   if (!nominations.length && !results.length) {
-    return <h4 id="prompt">Use the search box below to find your favorite movies</h4>;
+    return <h4 id="prompt">Click the search icon below to find your favorite movies</h4>;
   }
 
   if (nominations.length && landingMsg && !results.length) {
@@ -32,7 +32,7 @@ const Nominations = ({ movieList, removeMovie, searchData, landingMsg, clearNomi
   }
 
   return (
-    nominations.length > 0 && (
+    // nominations.length > 0 && (
     <div id="nominations">
       <button className="nominations btn" onClick={toggleShowList}>
         Your nominations ({nominations.length})
@@ -52,7 +52,7 @@ const Nominations = ({ movieList, removeMovie, searchData, landingMsg, clearNomi
         }
       </ul>
     </div>
-    )
+    // )
   );
 };
 

@@ -4,7 +4,7 @@
 
 :root {
   --primary-font: 'Poppins', sans-serif;
-  --dark-blue: rgb(46, 39, 107);
+  --dark-blue: rgb(39, 44, 107);
   --light-blue: rgba(134, 141, 204, 0.5);
 }
 
@@ -30,11 +30,11 @@ body {
 h1 {
   font-family: 'Righteous', sans-serif;
   font-size: 3.5rem;
-  margin-top: 0;
+  margin-top: 1rem;
 }
 
 .main {
-  position: relative;
+  /* position: relative; */
   flex-direction: column;
   margin-bottom: 2rem;
 }
@@ -44,7 +44,7 @@ h1 {
   bottom: 0;
   background-color: var(--dark-blue);
   width: 100%;
-  height: 50px;
+  height: 45px;
 }
 
 #prompt {
@@ -54,19 +54,22 @@ h1 {
 
 .search {
   position: absolute;
-  top: 10rem;
+  top: 18rem;
   height: 50px;
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
 .search.active.expand {
-  position: relative;
-  transform: translateY(-260%);
+  /* position: relative; */
+  top: 30px;
+  left: 18vw;
+  /* transform: translate(-355px, -260%); */
 }
 
 .search input {
   background-color: #fff;
   border: 0;
+  border-radius: 5px;
   font-size: 18px;
   padding: 15px;
   height: 50px;
@@ -81,6 +84,7 @@ h1 {
 .search button {
   background-color: #fff;
   border: 0;
+  border-radius: 5px;
   cursor: pointer;
   font-size: 24px;
   position: absolute;
@@ -104,7 +108,7 @@ h1 {
   list-style-type: none;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-top: 10vh;
+  /* margin-top: 10vh; */
 }
 
 .card {
@@ -116,17 +120,18 @@ h1 {
   width: 230px;
   height: 360px;
   animation: fade-in 0.5s linear;
-  text-overflow: ellipsis;
-  overflow: hidden;
 }
 
 .card h5 {
   margin: .5rem 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .card img {
   width: 100%;
-  height: 80%;
+  height: 75%;
   border-radius: 5px;
 }
 
@@ -140,6 +145,7 @@ h1 {
   padding: .2rem .5rem;
   margin: 0.25rem;
   transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
 .btn:hover {
@@ -154,15 +160,22 @@ h1 {
   background-color: rgba(219, 219, 219, 0.1);
 }
 
+.nominations.btn {
+  height: 45px;
+  width: 240px;
+  font-size: 1.25rem;
+}
+
 #nominations {
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 18vw;
+  top: 30px;
   text-align: left;
-  transform: translateY(-88px);
+  /* transform: translateY(-88px); */
 }
 
 .list {
+  background-color: var(--dark-blue);
   list-style-type: none;
   list-style-position: outside;
   text-align: left;
@@ -173,11 +186,9 @@ h1 {
 
 .list.active {
   transform: translateY(0%);
-}
-
-.list li {
-  text-align: left;
-  z-index: -1;
+  z-index: 9;
+  background-color: var(--dark-blue);
+  border-radius: 5px;
 }
 
 .banner {
@@ -187,7 +198,7 @@ h1 {
   position: fixed;
   bottom: 0;
   width: 100vw;
-  height: 80px;
+  height: 70px;
   background-color: rgb(254, 254, 0);
   color: var(--dark-blue);
   font-weight: bold;
@@ -221,9 +232,9 @@ h1 {
   }
 }
 
-@media screen and (min-width: 1300px) {
+@media screen and (min-width: 1500px) {
   .main {
-    width: 1300px;
+    width: 1500px;
     margin: 0 auto;
   }
 }
