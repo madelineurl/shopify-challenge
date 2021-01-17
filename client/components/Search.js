@@ -13,7 +13,7 @@ const Search = () => {
   const [searchData, setSearchData] = useState([]);
   const [movieList, setMovieList] = useState([]);
   const [error, setError] = useState('');
-  const [landingMsg, setLandingMsg] = useState(false);
+  const [savedDataMsg, setSavedDataMsg] = useState(false);
 
   const searchClass = searchActive ? 'search active' : 'search';
   const resultsClass = searchData.length ? 'expand' : '';
@@ -22,7 +22,7 @@ const Search = () => {
   useEffect(() => {
     const nominations = JSON.parse(localStorage.getItem('nominations'));
     if (nominations) {
-      setLandingMsg(true);
+      setSavedDataMsg(true);
       setMovieList(nominations);
     }
   }, []);
@@ -89,11 +89,12 @@ const Search = () => {
       <div className={bannerClass}>Thanks for your nominations!</div>
       <Nominations
         movieList={movieList}
-        setLandingMsg={setLandingMsg}
+        setSavedDataMsg={setSavedDataMsg}
         removeMovie={removeMovie}
         searchData={searchData}
         clearNominations={clearNominations}
-        landingMsg={landingMsg}
+        savedDataMsg={savedDataMsg}
+        openSearchBar={openSearchBar}
       />
       <form method="GET" className={`${searchClass} ${resultsClass}`}>
         <input

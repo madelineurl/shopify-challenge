@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-/* Righteous and Lobster are both fun choices */
 
 :root {
   --primary-font: 'Poppins', sans-serif;
-  --dark-blue: rgb(46, 39, 107);
+  --dark-blue: rgb(39, 44, 107);
   --light-blue: rgba(134, 141, 204, 0.5);
+  --primary-purple: rgba(158, 113, 203, 1.0);
 }
 
 * {
@@ -27,15 +27,9 @@ body {
   flex-wrap: wrap;
 }
 
-h1 {
-  font-family: 'Righteous', sans-serif;
-  font-size: 3.5rem;
-  margin-top: 0;
-}
-
 .main {
-  position: relative;
   flex-direction: column;
+  text-align: center;
 }
 
 .footer {
@@ -43,29 +37,36 @@ h1 {
   bottom: 0;
   background-color: var(--dark-blue);
   width: 100%;
-  height: 50px;
+  height: 45px;
+}
+
+h1 {
+  font-family: 'Righteous', sans-serif;
+  font-size: 3.5rem;
+  margin-top: 1rem;
 }
 
 #prompt {
   position: relative;
-  top: 10vh;
+  top: 50px;
 }
 
 .search {
   position: absolute;
-  top: 20vh;
+  top: 18rem;
   height: 50px;
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
 .search.active.expand {
-  position: relative;
-  transform: translate(-210%, -260%);
+  top: 30px;
+  left: 12%;
 }
 
 .search input {
   background-color: #fff;
   border: 0;
+  border-radius: 5px;
   font-size: 18px;
   padding: 15px;
   height: 50px;
@@ -74,12 +75,13 @@ h1 {
 }
 
 .search.active input {
-  width: 230px;
+  width: 220px;
 }
 
 .search button {
   background-color: #fff;
   border: 0;
+  border-radius: 5px;
   cursor: pointer;
   font-size: 24px;
   position: absolute;
@@ -103,69 +105,129 @@ h1 {
   list-style-type: none;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-top: 10vh;
+  width: 100%;
 }
 
 .card {
   position: relative;
+  flex-direction: column;
+  flex-wrap: nowrap;
   padding: .75rem;
   margin: 1rem;
   background-color: var(--light-blue);
   border-radius: 5px;
-  width: 220px;
-  height: 350px;
+  width: 230px;
+  height: 360px;
   animation: fade-in 0.5s linear;
-  text-overflow: ellipsis;
-  overflow: hidden;
 }
 
-.card h4 {
-  margin: 0;
+.card span {
+  width: 100%;
+}
+
+.card h5 {
+  margin: .5rem 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .card img {
   width: 100%;
-  height: 80%;
+  height: 75%;
   border-radius: 5px;
+}
+
+.card .btn {
+  width: 100%;
+  background-color: var(--primary-purple);
+}
+
+.card .btn:hover {
+  background-color: var(--light-blue);
 }
 
 .btn {
   font-family: var(--primary-font);
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: var(--light-blue);
   color: #fff;
-  padding: .25rem .75rem;
+  padding: .2rem .5rem;
   margin: 0.25rem;
   transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
 .btn:hover {
-  background-color:rgba(158, 113, 203, 1.0);
+  background-color: var(--primary-purple);
 }
 
 .btn:focus {
   outline: none;
 }
 
+.btn:disabled {
+  background-color: rgba(255, 255, 255, 0.226);
+  opacity: 0.3;
+  cursor: auto;
+}
+
 #nominations {
   position: absolute;
-  right: 10px;
-  top: 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  right: 10%;
+  top: 30px;
+  width: 240px;
   text-align: left;
-  transform: translateY(-35%);
+  animation: slide-in 0.3s ease;
+}
+
+.nominations.btn {
+  height: 45px;
+  width: 100%;
+  font-size: 1.25rem;
+  border-radius: 5px;
+  margin: 0;
+}
+
+#nominations div:nth-of-type(1) {
+  position: relative;
+  width: 240px;
+  height: 60px;
+}
+
+#nominations span {
+  position: absolute;
+  right: -5px;
+  top: -15px;
+  background-color: rgb(170, 18, 18);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
 }
 
 .list {
   list-style-type: none;
-  text-align: left;
-  transform: translateY(-200%);
-  transition: transform 0.3s ease;
+  border-radius: 5px;
+  padding: .5rem .25rem;
+  margin: 0;
+  z-index: 9;
+  background-color: rgb(134, 141, 204);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .list.active {
-  transform: translateY(0%);
+  opacity: 1;
+}
+
+.list .btn {
+  margin-left: 0;
+  padding: .25rem .75rem;
 }
 
 .banner {
@@ -173,14 +235,14 @@ h1 {
   justify-content: center;
   align-items: center;
   position: fixed;
-  top: 0;
+  bottom: 0;
   width: 100vw;
-  height: 5vh;
+  height: 70px;
   background-color: rgb(254, 254, 0);
-  color: var(--light-blue);
+  color: var(--dark-blue);
   font-weight: bold;
   font-size: 1.75rem;
-  transform: translateY(-100%);
+  transform: translateY(100%);
   transition: transform 0.3s linear;
   z-index: 5;
 }
@@ -209,9 +271,35 @@ h1 {
   }
 }
 
-@media screen and (min-width: 1300px) {
-  .main {
-    width: 1300px;
+@media screen and (max-width: 1080px) {
+  #nominations {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .search.active.expand  {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .search-results {
+    width: 1600px;
     margin: 0 auto;
+  }
+
+  #nominations {
+    right: 14vw;
+  }
+
+  .search.active.expand {
+    left: 16vw;
   }
 }

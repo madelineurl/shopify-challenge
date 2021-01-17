@@ -1,6 +1,16 @@
 import React, { useState } from "react";
 
-const Nominations = ({ movieList, removeMovie, searchData, landingMsg, clearNominations, setLandingMsg }) => {
+const Nominations = (props) => {
+  const {
+    movieList,
+    removeMovie,
+    searchData,
+    savedDataMsg,
+    clearNominations,
+    setSavedDataMsg,
+    openSearchBar
+  } = props;
+
   const [listShowing, setListShowing] = useState(false);
   const listClass = listShowing ? 'list active' : 'list';
   const nominations = movieList || [];
@@ -11,16 +21,29 @@ const Nominations = ({ movieList, removeMovie, searchData, landingMsg, clearNomi
   };
 
   if (!nominations.length && !results.length) {
-    return <h4 id="prompt">Use the search box below to find your favorite movies</h4>;
+    return <h4 id="prompt">Click the search icon below to find your favorite movies</h4>;
   }
 
-  if (nominations.length && landingMsg && !results.length) {
+  if (nominations.length && savedDataMsg && !results.length) {
     return (
       <>
         <h3>You have previously saved nominations. Continue adding?</h3>
         <div className="container">
-          <button className="btn" onClick={() => { setLandingMsg(false); }}>Continue</button>
-          <button className="btn" onClick={clearNominations}>Start over</button>
+          <button
+            className="btn"
+            onClick={() => {
+              setSavedDataMsg(false);
+              openSearchBar();
+            }}
+          >
+            Continue
+          </button>
+          <button
+            className="btn"
+            onClick={clearNominations}
+          >
+            Start over
+          </button>
         </div>
       </>
     );
@@ -29,18 +52,22 @@ const Nominations = ({ movieList, removeMovie, searchData, landingMsg, clearNomi
   return (
     <div id="nominations">
       <button className="nominations btn" onClick={toggleShowList}>
-        Your nominations ({nominations.length})
+        Your nominations
+        {
+          nominations.length > 0 &&
+            <span className="container">{nominations.length}</span>
+        }
       </button>
       <ul className={listClass}>
         {
           nominations.length ? nominations.map(movie => (
             <li key={movie.imdbID} >
-              {movie.Title} ({movie.Year})
               <button
                 className="btn"
                 onClick={() => { removeMovie(movie.imdbID); } }>
-                  Delete
+                  x
               </button>
+              {movie.Title} ({movie.Year})
             </li>
           )) : <div>Nothing here yet!</div>
         }
