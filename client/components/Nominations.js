@@ -28,7 +28,7 @@ const Nominations = ({ movieList, removeMovie, searchData, landingMsg, clearNomi
 
   return (
     <div id="nominations">
-      <button className="nominations-btn" onClick={toggleShowList}>
+      <button className="nominations btn" onClick={toggleShowList}>
         Your nominations ({nominations.length})
       </button>
       <ul className={listClass}>

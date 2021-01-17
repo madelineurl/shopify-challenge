@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
       <div className="container main">
           {children}
       </div>
-      <div className="footer">
+      <div className="footer container">
         App by Madeline Higgins
       </div>
     </>

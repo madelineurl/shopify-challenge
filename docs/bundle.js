@@ -134,7 +134,7 @@ var Layout = function Layout(_ref) {
   }, "The Shoppies"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "container main"
   }, children), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "footer"
+    className: "footer container"
   }, "App by Madeline Higgins"));
 };
 
@@ -211,7 +211,7 @@ var Nominations = function Nominations(_ref) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "nominations"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    className: "nominations-btn",
+    className: "nominations btn",
     onClick: toggleShowList
   }, "Your nominations (", nominations.length, ")"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     className: listClass
