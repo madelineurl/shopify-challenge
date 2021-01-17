@@ -94,6 +94,7 @@ const Search = () => {
         searchData={searchData}
         clearNominations={clearNominations}
         landingMsg={landingMsg}
+        openSearchBar={openSearchBar}
       />
       <form method="GET" className={`${searchClass} ${resultsClass}`}>
         <input

@@ -173,7 +173,8 @@ var Nominations = function Nominations(_ref) {
       searchData = _ref.searchData,
       landingMsg = _ref.landingMsg,
       clearNominations = _ref.clearNominations,
-      setLandingMsg = _ref.setLandingMsg;
+      setLandingMsg = _ref.setLandingMsg,
+      openSearchBar = _ref.openSearchBar;
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -201,6 +202,7 @@ var Nominations = function Nominations(_ref) {
       className: "btn",
       onClick: function onClick() {
         setLandingMsg(false);
+        openSearchBar();
       }
     }, "Continue"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: "btn",
@@ -208,7 +210,7 @@ var Nominations = function Nominations(_ref) {
     }, "Start over")));
   }
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  return nominations.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "nominations"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "nominations btn",
@@ -218,12 +220,12 @@ var Nominations = function Nominations(_ref) {
   }, nominations.length ? nominations.map(function (movie) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
       key: movie.imdbID
-    }, movie.Title, " (", movie.Year, ")", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: "btn",
       onClick: function onClick() {
         removeMovie(movie.imdbID);
       }
-    }, "Delete"));
+    }, "x"), movie.Title, " (", movie.Year, ")");
   }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Nothing here yet!")));
 };
 
@@ -432,7 +434,8 @@ var Search = function Search() {
     removeMovie: removeMovie,
     searchData: searchData,
     clearNominations: clearNominations,
-    landingMsg: landingMsg
+    landingMsg: landingMsg,
+    openSearchBar: openSearchBar
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
     method: "GET",
     className: "".concat(searchClass, " ").concat(resultsClass)
@@ -497,7 +500,7 @@ var SearchResults = function SearchResults(_ref) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
       src: movie.Poster,
       alt: "".concat(movie.Title, " poster")
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
       className: "card-title"
     }, movie.Title, " (", movie.Year, ")"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       onClick: function onClick() {

@@ -13,9 +13,9 @@ const SearchResults = ({ searchData, addMovie, checkID, error }) => {
                 src={movie.Poster}
                 alt={`${movie.Title} poster`}
               />
-              <h4 className='card-title'>
+              <h5 className='card-title'>
                 {movie.Title} ({movie.Year})
-              </h4>
+              </h5>
               <button
                 onClick={() => addMovie(movie)}
                 disabled={checkID(movie)}

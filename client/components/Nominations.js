@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Nominations = ({ movieList, removeMovie, searchData, landingMsg, clearNominations, setLandingMsg }) => {
+const Nominations = ({ movieList, removeMovie, searchData, landingMsg, clearNominations, setLandingMsg, openSearchBar }) => {
   const [listShowing, setListShowing] = useState(false);
   const listClass = listShowing ? 'list active' : 'list';
   const nominations = movieList || [];
@@ -19,7 +19,12 @@ const Nominations = ({ movieList, removeMovie, searchData, landingMsg, clearNomi
       <>
         <h3>You have previously saved nominations. Continue adding?</h3>
         <div className="container">
-          <button className="btn" onClick={() => { setLandingMsg(false); }}>Continue</button>
+          <button className="btn" onClick={() => {
+              setLandingMsg(false);
+              openSearchBar();
+            }}
+          >
+              Continue</button>
           <button className="btn" onClick={clearNominations}>Start over</button>
         </div>
       </>
@@ -27,6 +32,7 @@ const Nominations = ({ movieList, removeMovie, searchData, landingMsg, clearNomi
   }
 
   return (
+    nominations.length > 0 && (
     <div id="nominations">
       <button className="nominations btn" onClick={toggleShowList}>
         Your nominations ({nominations.length})
@@ -35,17 +41,18 @@ const Nominations = ({ movieList, removeMovie, searchData, landingMsg, clearNomi
         {
           nominations.length ? nominations.map(movie => (
             <li key={movie.imdbID} >
-              {movie.Title} ({movie.Year})
               <button
                 className="btn"
                 onClick={() => { removeMovie(movie.imdbID); } }>
-                  Delete
+                  x
               </button>
+              {movie.Title} ({movie.Year})
             </li>
           )) : <div>Nothing here yet!</div>
         }
       </ul>
     </div>
+    )
   );
 };
 
