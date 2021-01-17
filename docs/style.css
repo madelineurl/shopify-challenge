@@ -29,6 +29,7 @@ body {
 
 .main {
   flex-direction: column;
+  text-align: center;
 }
 
 .footer {
@@ -212,16 +213,21 @@ h1 {
 .list {
   list-style-type: none;
   border-radius: 5px;
-  padding: .5rem;
+  padding: .5rem .25rem;
   margin: 0;
-  background-color: rgb(134, 141, 204);;
+  z-index: 9;
+  background-color: rgb(134, 141, 204);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
 .list.active {
   opacity: 1;
-  z-index: 9;
+}
+
+.list .btn {
+  margin-left: 0;
+  padding: .25rem .75rem;
 }
 
 .banner {
@@ -265,6 +271,24 @@ h1 {
   }
 }
 
+@media screen and (max-width: 1080px) {
+  #nominations {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .search.active.expand  {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
 @media screen and (min-width: 1600px) {
   .search-results {
     width: 1600px;
@@ -272,10 +296,10 @@ h1 {
   }
 
   #nominations {
-    right: 15%;
+    right: 14vw;
   }
 
   .search.active.expand {
-    left: 15%;
+    left: 16vw;
   }
 }
