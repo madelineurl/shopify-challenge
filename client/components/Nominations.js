@@ -32,11 +32,12 @@ const Nominations = ({ movieList, removeMovie, searchData, landingMsg, clearNomi
   }
 
   return (
-    // nominations.length > 0 && (
     <div id="nominations">
-      <button className="nominations btn" onClick={toggleShowList}>
-        Your nominations ({nominations.length})
-      </button>
+      <div>
+        <button className="nominations btn" onClick={toggleShowList}>
+          Your nominations  <span className="container">{nominations.length}</span>
+        </button>
+      </div>
       <ul className={listClass}>
         {
           nominations.length ? nominations.map(movie => (
@@ -52,7 +53,6 @@ const Nominations = ({ movieList, removeMovie, searchData, landingMsg, clearNomi
         }
       </ul>
     </div>
-    // )
   );
 };
 

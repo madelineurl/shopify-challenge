@@ -210,28 +210,25 @@ var Nominations = function Nominations(_ref) {
     }, "Start over")));
   }
 
-  return (
-    /*#__PURE__*/
-    // nominations.length > 0 && (
-    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      id: "nominations"
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "nominations"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "nominations btn",
+    onClick: toggleShowList
+  }, "Your nominations  ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "container"
+  }, nominations.length))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    className: listClass
+  }, nominations.length ? nominations.map(function (movie) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      key: movie.imdbID
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      className: "nominations btn",
-      onClick: toggleShowList
-    }, "Your nominations (", nominations.length, ")"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-      className: listClass
-    }, nominations.length ? nominations.map(function (movie) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        key: movie.imdbID
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "btn",
-        onClick: function onClick() {
-          removeMovie(movie.imdbID);
-        }
-      }, "x"), movie.Title, " (", movie.Year, ")");
-    }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Nothing here yet!"))) // )
-
-  );
+      className: "btn",
+      onClick: function onClick() {
+        removeMovie(movie.imdbID);
+      }
+    }, "x"), movie.Title, " (", movie.Year, ")");
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Nothing here yet!")));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Nominations);
