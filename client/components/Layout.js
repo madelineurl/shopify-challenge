@@ -3,15 +3,15 @@ import React from "react";
 const Layout = ({ children }) => {
   return (
     <>
-      <h1>
+      <h1 style={{ display: `flex`, justifyContent: `center`}}>
         The Shoppies
       </h1>
       <div className="container main">
           {children}
       </div>
-      {/* <div className="footer">
+      <div className="footer container">
         App by Madeline Higgins
-      </div> */}
+      </div>
     </>
   );
 };

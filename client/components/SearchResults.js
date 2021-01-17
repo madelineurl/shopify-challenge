@@ -9,19 +9,17 @@ const SearchResults = ({ searchData, addMovie, checkID, error }) => {
         results.length ? (
           results.map(movie => (
             <li key={movie.imdbID} className="card container">
-               <h4 className='card-title'>
-                {movie.Title} ({movie.Year})
-              </h4>
               <img
                 src={movie.Poster}
                 alt={`${movie.Title} poster`}
               />
-              {/* <h4 className='card-title'>
+              <h4 className='card-title'>
                 {movie.Title} ({movie.Year})
-              </h4> */}
+              </h4>
               <button
                 onClick={() => addMovie(movie)}
                 disabled={checkID(movie)}
+                className="btn"
               >
                   Nominate
               </button>

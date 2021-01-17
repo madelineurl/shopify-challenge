@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const Nominations = ({ movieList, removeMovie, searchData, landingMsg, clearNominations, setLandingMsg }) => {
   const [listShowing, setListShowing] = useState(false);
-  const listClass = listShowing ? 'nominations active' : 'nominations';
+  const listClass = listShowing ? 'list active' : 'list';
   const nominations = movieList || [];
   const results = searchData || [];
 
@@ -18,18 +18,20 @@ const Nominations = ({ movieList, removeMovie, searchData, landingMsg, clearNomi
     return (
       <>
         <h3>You have previously saved nominations. Continue adding?</h3>
-        <button onClick={() => { setLandingMsg(false); }}>Continue</button>
-        <button onClick={clearNominations}>Start over</button>
+        <div className="container">
+          <button className="btn" onClick={() => { setLandingMsg(false); }}>Continue</button>
+          <button className="btn" onClick={clearNominations}>Start over</button>
+        </div>
       </>
     );
   }
 
   return (
-    <div className={listClass}>
-      <button className="nominations-btn" onClick={toggleShowList}>
+    <div id="nominations">
+      <button className="nominations btn" onClick={toggleShowList}>
         Your nominations ({nominations.length})
       </button>
-      <ul>
+      <ul className={listClass}>
         {
           nominations.length ? nominations.map(movie => (
             <li key={movie.imdbID} >

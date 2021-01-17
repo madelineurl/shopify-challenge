@@ -126,9 +126,16 @@ __webpack_require__.r(__webpack_exports__);
 
 var Layout = function Layout(_ref) {
   var children = _ref.children;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "The Shoppies"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+    style: {
+      display: "flex",
+      justifyContent: "center"
+    }
+  }, "The Shoppies"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "container main"
-  }, children));
+  }, children), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "footer container"
+  }, "App by Madeline Higgins"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Layout);
@@ -173,7 +180,7 @@ var Nominations = function Nominations(_ref) {
       listShowing = _useState2[0],
       setListShowing = _useState2[1];
 
-  var listClass = listShowing ? 'nominations active' : 'nominations';
+  var listClass = listShowing ? 'list active' : 'list';
   var nominations = movieList || [];
   var results = searchData || [];
 
@@ -188,21 +195,27 @@ var Nominations = function Nominations(_ref) {
   }
 
   if (nominations.length && landingMsg && !results.length) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "You have previously saved nominations. Continue adding?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "You have previously saved nominations. Continue adding?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "btn",
       onClick: function onClick() {
         setLandingMsg(false);
       }
     }, "Continue"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "btn",
       onClick: clearNominations
-    }, "Start over"));
+    }, "Start over")));
   }
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: listClass
+    id: "nominations"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    className: "nominations-btn",
+    className: "nominations btn",
     onClick: toggleShowList
-  }, "Your nominations (", nominations.length, ")"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, nominations.length ? nominations.map(function (movie) {
+  }, "Your nominations (", nominations.length, ")"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    className: listClass
+  }, nominations.length ? nominations.map(function (movie) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
       key: movie.imdbID
     }, movie.Title, " (", movie.Year, ")", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -261,7 +274,6 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-/* eslint-disable no-console */
 
 
 
@@ -358,7 +370,7 @@ var Search = function Search() {
 
             case 5:
               _context.next = 7;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("http://www.omdbapi.com/?s=".concat(searchVal, "&apikey=").concat(process.env.API_KEY, "&type=movie"));
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("https://www.omdbapi.com/?s=".concat(searchVal, "&apikey=").concat(process.env.API_KEY, "&type=movie"));
 
             case 7:
               _yield$axios$get = _context.sent;
@@ -482,16 +494,17 @@ var SearchResults = function SearchResults(_ref) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
       key: movie.imdbID,
       className: "card container"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-      className: "card-title"
-    }, movie.Title, " (", movie.Year, ")"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
       src: movie.Poster,
       alt: "".concat(movie.Title, " poster")
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+      className: "card-title"
+    }, movie.Title, " (", movie.Year, ")"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       onClick: function onClick() {
         return addMovie(movie);
       },
-      disabled: checkID(movie)
+      disabled: checkID(movie),
+      className: "btn"
     }, "Nominate"));
   }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, error));
 };
