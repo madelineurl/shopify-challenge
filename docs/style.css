@@ -28,11 +28,12 @@ body {
 h1 {
   font-family: 'Righteous', sans-serif;
   font-size: 3.5rem;
-  /* margin-top: 0; */
+  margin-top: 0;
 }
 
 .main {
   position: relative;
+  flex-direction: column;
 }
 
 .btn {
@@ -43,6 +44,11 @@ h1 {
   position: fixed;
   bottom: 15px;
   /* font-family: var(--primary-font); */
+}
+
+#prompt {
+  position: relative;
+  top: 10vh;
 }
 
 .search {
@@ -99,7 +105,7 @@ h1 {
   margin-top: 15vh;
 }
 
-#nominations {
+.nominations {
   position: absolute;
   top: 0;
   text-align: left;

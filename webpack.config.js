@@ -3,7 +3,7 @@ module.exports = {
   entry:  ['@babel/polyfill', './client/index.js'],
   output: {
     path: __dirname,
-    filename: './public/bundle.js'
+    filename: './docs/bundle.js'
   },
   resolve: {
     extensions: ['.js', '.jsx']
