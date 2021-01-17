@@ -1,18 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 
-const Nominations = ({ movieList, removeMovie }) => {
+const Nominations = ({ movieList, removeMovie, searchData, landingMsg, clearNominations, setLandingMsg }) => {
+  const [listShowing, setListShowing] = useState(false);
+  const listClass = listShowing ? 'list active' : 'list';
   const nominations = movieList || [];
+  const results = searchData || [];
 
-  if (!nominations.length) {
-    return <h3>No movies nominated yet...</h3>;
+  const toggleShowList = () => {
+    setListShowing(!listShowing);
+  };
+
+  if (!nominations.length && !results.length) {
+    return <h4>Use the search box below to find your favorite movies</h4>;
+  }
+
+  if (nominations.length && landingMsg && !results.length) {
+    return (
+      <>
+        <h3>You have previously saved nominations. Continue adding?</h3>
+        <button onClick={() => { setLandingMsg(false); }}>Continue</button>
+        <button onClick={clearNominations}>Start over</button>
+      </>
+    );
   }
 
   return (
     <div id="nominations">
-      <h3>Nominations:</h3>
-      <ul>
+      <button className="nominations-btn" onClick={toggleShowList}>
+        Your nominations ({nominations.length})
+      </button>
+      <ul className={listClass}>
         {
-          nominations.map(movie => (
+          nominations.length ? nominations.map(movie => (
             <li key={movie.imdbID} >
               {movie.Title} ({movie.Year})
               <button
@@ -21,12 +40,9 @@ const Nominations = ({ movieList, removeMovie }) => {
                   Delete
               </button>
             </li>
-          ))
+          )) : <div>Nothing here yet!</div>
         }
       </ul>
-      <div id='votes-remaining'>
-        { 5 - nominations.length } to go!
-      </div>
     </div>
   );
 };

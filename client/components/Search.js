@@ -13,15 +13,24 @@ const Search = () => {
   const [searchVal, setSearchVal] = useState('');
   const [searchData, setSearchData] = useState([]);
   const [movieList, setMovieList] = useState([]);
-  const [msg, setMsg] = useState('');
+  const [error, setError] = useState('');
+  const [landingMsg, setLandingMsg] = useState(false);
 
   const searchClass = searchActive ? 'search active' : 'search';
+  const resultsClass = searchData.length ? 'expand' : '';
   const bannerClass = movieList.length === 5 ? 'banner show' : 'banner';
 
   useEffect(() => {
     const nominations = JSON.parse(localStorage.getItem('nominations'));
-    if (nominations) setMovieList(nominations);
+    if (nominations) {
+      setLandingMsg(true);
+      setMovieList(nominations);
+    }
   }, []);
+
+  const clearNominations = () => {
+    setMovieList([]);
+  };
 
   const updateLocalStorage = updatedList => {
     localStorage.setItem('nominations', JSON.stringify(updatedList));
@@ -49,7 +58,7 @@ const Search = () => {
         const { data } = await axios.get(
           `http://www.omdbapi.com/?s=${searchVal}&apikey=${process.env.API_KEY}&type=movie`
         );
-        data.Response === 'True' ? setSearchData(data.Search) : setMsg(data.Error);
+        data.Response === 'True' ? setSearchData(data.Search) : setError(data.Error);
       }
     } catch (err) {
       console.error(err);
@@ -77,10 +86,18 @@ const Search = () => {
 
   return (
     <>
-      <div className={bannerClass}>Thanks for your nominations.</div>
-      <Nominations movieList={movieList} removeMovie={removeMovie} />
-      <form method="GET" className={searchClass}>
+      <div className={bannerClass}>Thanks for your nominations!</div>
+      <Nominations
+        movieList={movieList}
+        setLandingMsg={setLandingMsg}
+        removeMovie={removeMovie}
+        searchData={searchData}
+        clearNominations={clearNominations}
+        landingMsg={landingMsg}
+      />
+      <form method="GET" className={`${searchClass} ${resultsClass}`}>
         <input
+          autoComplete="off"
           type="text"
           name="search"
           className="input"
@@ -105,7 +122,7 @@ const Search = () => {
      <SearchResults
         searchData={searchData}
         addMovie={addMovie}
-        msg={msg}
+        error={error}
         checkID={checkID}
       />
     </>
