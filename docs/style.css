@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 /* Righteous and Lobster are both fun choices */
 
 :root {
-  --primary-font: 'Raleway', sans-serif;
+  --primary-font: 'Poppins', sans-serif;
+  --dark-blue: rgb(46, 39, 107);
+  --light-blue: rgba(134, 141, 204, 0.5);
 }
 
 * {
@@ -11,7 +13,7 @@
 }
 
 body {
-  background-color: rebeccapurple;
+  background-color: var(--dark-blue);
   color: white;
   font-family: var(--primary-font);
   font-size: 1.25rem;
@@ -38,6 +40,18 @@ h1 {
 
 .btn {
   font-family: var(--primary-font);
+  font-size: 1.25rem;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--light-blue);
+  color: #fff;
+  padding: .25rem .75rem;
+  margin: 0.25rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color:rgba(158, 113, 203, 1.0);
 }
 
 .footer {
@@ -59,7 +73,8 @@ h1 {
 }
 
 .search.active.expand {
-  transform: translate(-150%, -10vh);
+  position: relative;
+  transform: translate(-210%, -260%);
 }
 
 .search input {
@@ -102,30 +117,33 @@ h1 {
   list-style-type: none;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-top: 15vh;
+  margin-top: 10vh;
 }
 
-.nominations {
+#nominations {
   position: absolute;
+  right: 10px;
   top: 0;
   text-align: left;
+  transform: translateY(-35%);
 }
 
 .list {
   list-style-type: none;
   text-align: left;
+  transform: translateY(-200%);
   transition: transform 0.3s ease;
 }
 
 .list.active {
-  transform: translateX(300px);
+  transform: translateY(0%);
 }
 
 .card {
   position: relative;
   padding: .75rem;
   margin: 1rem;
-  background-color: rgb(158, 113, 203);
+  background-color: var(--light-blue);
   border-radius: 5px;
   width: 220px;
   height: 350px;
@@ -185,9 +203,9 @@ h1 {
   }
 }
 
-@media screen and (min-width: 1100px) {
+@media screen and (min-width: 1300px) {
   .main {
-    width: 1100px;
+    width: 1300px;
     margin: 0 auto;
   }
 }
