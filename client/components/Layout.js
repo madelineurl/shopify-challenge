@@ -2,7 +2,7 @@ import React from "react";
 
 const Layout = ({ children }) => {
   return (
-    <div className="container">
+    <>
       <h1>
         The Shoppies
       </h1>
@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
       {/* <div className="footer">
         App by Madeline Higgins
       </div> */}
-    </div>
+    </>
   );
 };
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const Nominations = ({ movieList, removeMovie, searchData, landingMsg, clearNominations, setLandingMsg }) => {
   const [listShowing, setListShowing] = useState(false);
-  const listClass = listShowing ? 'list active' : 'list';
+  const listClass = listShowing ? 'nominations active' : 'nominations';
   const nominations = movieList || [];
   const results = searchData || [];
 
@@ -11,7 +11,7 @@ const Nominations = ({ movieList, removeMovie, searchData, landingMsg, clearNomi
   };
 
   if (!nominations.length && !results.length) {
-    return <h4>Use the search box below to find your favorite movies</h4>;
+    return <h4 id="prompt">Use the search box below to find your favorite movies</h4>;
   }
 
   if (nominations.length && landingMsg && !results.length) {
@@ -25,11 +25,11 @@ const Nominations = ({ movieList, removeMovie, searchData, landingMsg, clearNomi
   }
 
   return (
-    <div id="nominations">
+    <div className={listClass}>
       <button className="nominations-btn" onClick={toggleShowList}>
         Your nominations ({nominations.length})
       </button>
-      <ul className={listClass}>
+      <ul>
         {
           nominations.length ? nominations.map(movie => (
             <li key={movie.imdbID} >

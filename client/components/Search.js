@@ -30,6 +30,7 @@ const Search = () => {
 
   const clearNominations = () => {
     setMovieList([]);
+    updateLocalStorage([]);
   };
 
   const updateLocalStorage = updatedList => {
