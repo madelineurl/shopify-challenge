@@ -57,7 +57,7 @@ const Search = () => {
         alert('Please enter a search value');
       } else {
         const { data } = await axios.get(
-          `http://www.omdbapi.com/?s=${searchVal}&apikey=${process.env.API_KEY}&type=movie`
+          `https://www.omdbapi.com/?s=${searchVal}&apikey=${process.env.API_KEY}&type=movie`
         );
         data.Response === 'True' ? setSearchData(data.Search) : setError(data.Error);
       }
