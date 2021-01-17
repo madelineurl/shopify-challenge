@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-/* Righteous and Lobster are both fun choices */
 
 :root {
   --primary-font: 'Poppins', sans-serif;
   --dark-blue: rgb(39, 44, 107);
   --light-blue: rgba(134, 141, 204, 0.5);
+  --primary-purple: rgba(158, 113, 203, 1.0);
 }
 
 * {
@@ -27,16 +27,8 @@ body {
   flex-wrap: wrap;
 }
 
-h1 {
-  font-family: 'Righteous', sans-serif;
-  font-size: 3.5rem;
-  margin-top: 1rem;
-}
-
 .main {
-  /* position: relative; */
   flex-direction: column;
-  margin-bottom: 5rem;
 }
 
 .footer {
@@ -45,6 +37,12 @@ h1 {
   background-color: var(--dark-blue);
   width: 100%;
   height: 45px;
+}
+
+h1 {
+  font-family: 'Righteous', sans-serif;
+  font-size: 3.5rem;
+  margin-top: 1rem;
 }
 
 #prompt {
@@ -60,10 +58,8 @@ h1 {
 }
 
 .search.active.expand {
-  /* position: relative; */
   top: 30px;
-  left: 18vw;
-  /* transform: translate(-355px, -260%); */
+  left: 10%;
 }
 
 .search input {
@@ -78,7 +74,7 @@ h1 {
 }
 
 .search.active input {
-  width: 240px;
+  width: 220px;
 }
 
 .search button {
@@ -108,11 +104,13 @@ h1 {
   list-style-type: none;
   flex-direction: row;
   flex-wrap: wrap;
-  /* margin-top: 10vh; */
+  width: 100%;
 }
 
 .card {
   position: relative;
+  flex-direction: column;
+  flex-wrap: nowrap;
   padding: .75rem;
   margin: 1rem;
   background-color: var(--light-blue);
@@ -120,6 +118,10 @@ h1 {
   width: 230px;
   height: 360px;
   animation: fade-in 0.5s linear;
+}
+
+.card span {
+  width: 100%;
 }
 
 .card h5 {
@@ -135,9 +137,18 @@ h1 {
   border-radius: 5px;
 }
 
+.card .btn {
+  width: 100%;
+  background-color: var(--primary-purple);
+}
+
+.card .btn:hover {
+  background-color: var(--light-blue);
+}
+
 .btn {
   font-family: var(--primary-font);
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   border: none;
   border-radius: 10px;
   background-color: var(--light-blue);
@@ -149,7 +160,7 @@ h1 {
 }
 
 .btn:hover {
-  background-color:rgba(158, 113, 203, 1.0);
+  background-color: var(--primary-purple);
 }
 
 .btn:focus {
@@ -157,33 +168,41 @@ h1 {
 }
 
 .btn:disabled {
-  background-color: rgba(219, 219, 219, 0.1);
-}
-
-.nominations.btn {
-  height: 45px;
-  width: 240px;
-  font-size: 1.25rem;
+  background-color: rgba(255, 255, 255, 0.226);
+  opacity: 0.3;
+  cursor: auto;
 }
 
 #nominations {
   position: absolute;
-  right: 140px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  right: 3%;
   top: 30px;
+  width: 240px;
   text-align: left;
-  /* transform: translateY(-88px); */
+  animation: slide-in 0.3s ease;
+}
+
+.nominations.btn {
+  height: 45px;
+  width: 100%;
+  font-size: 1.25rem;
+  border-radius: 5px;
+  margin: 0;
 }
 
 #nominations div:nth-of-type(1) {
   position: relative;
-  width: 260px;
+  width: 240px;
   height: 60px;
 }
 
 #nominations span {
   position: absolute;
-  right: 5px;
-  top: -10px;
+  right: -5px;
+  top: -15px;
   background-color: rgb(170, 18, 18);
   border-radius: 50%;
   width: 40px;
@@ -191,20 +210,18 @@ h1 {
 }
 
 .list {
-  background-color: var(--dark-blue);
   list-style-type: none;
-  list-style-position: outside;
-  text-align: left;
-  transform: translateY(-300px);
-  transition: transform 0.3s ease;
-  margin: 0 auto;
+  border-radius: 0px 0px 5px 5px;
+  padding: .5rem;
+  margin: 0;
+  background-color: var(--light-blue);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .list.active {
-  transform: translateY(0%);
+  opacity: 1;
   z-index: 9;
-  background-color: var(--dark-blue);
-  border-radius: 5px;
 }
 
 .banner {
@@ -248,9 +265,9 @@ h1 {
   }
 }
 
-@media screen and (min-width: 1500px) {
-  .main {
-    width: 1500px;
+@media screen and (min-width: 1600px) {
+  .search-results {
+    width: 1600px;
     margin: 0 auto;
   }
 }

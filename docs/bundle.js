@@ -167,14 +167,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var Nominations = function Nominations(_ref) {
-  var movieList = _ref.movieList,
-      removeMovie = _ref.removeMovie,
-      searchData = _ref.searchData,
-      landingMsg = _ref.landingMsg,
-      clearNominations = _ref.clearNominations,
-      setLandingMsg = _ref.setLandingMsg,
-      openSearchBar = _ref.openSearchBar;
+var Nominations = function Nominations(props) {
+  var movieList = props.movieList,
+      removeMovie = props.removeMovie,
+      searchData = props.searchData,
+      savedDataMsg = props.savedDataMsg,
+      clearNominations = props.clearNominations,
+      setSavedDataMsg = props.setSavedDataMsg,
+      openSearchBar = props.openSearchBar;
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -195,13 +195,13 @@ var Nominations = function Nominations(_ref) {
     }, "Click the search icon below to find your favorite movies");
   }
 
-  if (nominations.length && landingMsg && !results.length) {
+  if (nominations.length && savedDataMsg && !results.length) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "You have previously saved nominations. Continue adding?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "container"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: "btn",
       onClick: function onClick() {
-        setLandingMsg(false);
+        setSavedDataMsg(false);
         openSearchBar();
       }
     }, "Continue"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -212,12 +212,12 @@ var Nominations = function Nominations(_ref) {
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "nominations"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "nominations btn",
     onClick: toggleShowList
-  }, "Your nominations  ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+  }, "Your nominations", nominations.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "container"
-  }, nominations.length))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+  }, nominations.length)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     className: listClass
   }, nominations.length ? nominations.map(function (movie) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
@@ -315,8 +315,8 @@ var Search = function Search() {
 
   var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
       _useState12 = _slicedToArray(_useState11, 2),
-      landingMsg = _useState12[0],
-      setLandingMsg = _useState12[1];
+      savedDataMsg = _useState12[0],
+      setSavedDataMsg = _useState12[1];
 
   var searchClass = searchActive ? 'search active' : 'search';
   var resultsClass = searchData.length ? 'expand' : '';
@@ -325,7 +325,7 @@ var Search = function Search() {
     var nominations = JSON.parse(localStorage.getItem('nominations'));
 
     if (nominations) {
-      setLandingMsg(true);
+      setSavedDataMsg(true);
       setMovieList(nominations);
     }
   }, []);
@@ -432,11 +432,11 @@ var Search = function Search() {
     className: bannerClass
   }, "Thanks for your nominations!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Nominations__WEBPACK_IMPORTED_MODULE_5__["default"], {
     movieList: movieList,
-    setLandingMsg: setLandingMsg,
+    setSavedDataMsg: setSavedDataMsg,
     removeMovie: removeMovie,
     searchData: searchData,
     clearNominations: clearNominations,
-    landingMsg: landingMsg,
+    savedDataMsg: savedDataMsg,
     openSearchBar: openSearchBar
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
     method: "GET",
@@ -500,11 +500,11 @@ var SearchResults = function SearchResults(_ref) {
       key: movie.imdbID,
       className: "card container"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-      src: movie.Poster,
+      src: movie.Poster === 'N/A' ? 'https://i.ibb.co/d2B7tK6/default-movie.png' : movie.Poster,
       alt: "".concat(movie.Title, " poster")
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
-      className: "card-title"
-    }, movie.Title, " (", movie.Year, ")"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      className: "container"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, movie.Title, " (", movie.Year, ")")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       onClick: function onClick() {
         return addMovie(movie);
       },
