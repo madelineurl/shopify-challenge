@@ -181,7 +181,7 @@ var Nominations = function Nominations(props) {
       listShowing = _useState2[0],
       setListShowing = _useState2[1];
 
-  var listClass = listShowing ? 'list active' : 'list';
+  var listClass = listShowing ? 'list-container active' : 'list-container';
   var nominations = movieList || [];
   var results = searchData || [];
 
@@ -217,9 +217,11 @@ var Nominations = function Nominations(props) {
     onClick: toggleShowList
   }, "Your nominations", nominations.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "container"
-  }, nominations.length)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+  }, nominations.length)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: listClass
-  }, nominations.length ? nominations.map(function (movie) {
+  }, nominations.length ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    className: "list"
+  }, nominations.map(function (movie) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
       key: movie.imdbID
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -228,7 +230,9 @@ var Nominations = function Nominations(props) {
         removeMovie(movie.imdbID);
       }
     }, "x"), movie.Title, " (", movie.Year, ")");
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Nothing here yet!")));
+  })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container"
+  }, "Nothing here yet!")));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Nominations);
@@ -363,7 +367,7 @@ var Search = function Search() {
             case 0:
               _context.prev = 0;
 
-              if (!(searchVal === '')) {
+              if (searchVal) {
                 _context.next = 5;
                 break;
               }

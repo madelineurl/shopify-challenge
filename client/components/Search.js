@@ -1,6 +1,6 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import axios from "axios";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import "../../secrets";
@@ -52,13 +52,14 @@ const Search = () => {
 
   const handleSearch = async (searchVal) => {
     try {
-      if (searchVal === '') {
+      if (!searchVal) {
         alert('Please enter a search value');
       } else {
         const { data } = await axios.get(
           `https://www.omdbapi.com/?s=${searchVal}&apikey=${process.env.API_KEY}&type=movie`
         );
-        data.Response === 'True' ? setSearchData(data.Search) : setError(data.Error);
+        data.Response === 'True' ?
+          setSearchData(data.Search) : setError(data.Error);
       }
     } catch (err) {
       console.error(err);
