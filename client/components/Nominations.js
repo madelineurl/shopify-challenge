@@ -12,7 +12,7 @@ const Nominations = (props) => {
   } = props;
 
   const [listShowing, setListShowing] = useState(false);
-  const listClass = listShowing ? 'list active' : 'list';
+  const listClass = listShowing ? 'list-container active' : 'list-container';
   const nominations = movieList || [];
   const results = searchData || [];
 
@@ -58,20 +58,25 @@ const Nominations = (props) => {
             <span className="container">{nominations.length}</span>
         }
       </button>
-      <ul className={listClass}>
+      <div className={listClass}>
         {
-          nominations.length ? nominations.map(movie => (
-            <li key={movie.imdbID} >
-              <button
-                className="btn"
-                onClick={() => { removeMovie(movie.imdbID); } }>
-                  x
-              </button>
-              {movie.Title} ({movie.Year})
-            </li>
-          )) : <div>Nothing here yet!</div>
+          nominations.length ?
+          <ul className="list">
+            {
+              nominations.map(movie => (
+                <li key={movie.imdbID} >
+                  <button
+                    className="btn"
+                    onClick={() => { removeMovie(movie.imdbID); } }>
+                      x
+                  </button>
+                  {movie.Title} ({movie.Year})
+                </li>
+              ))
+            }
+          </ul> : <div className="container">Nothing here yet!</div>
         }
-      </ul>
+      </div>
     </div>
   );
 };
